@@ -1,0 +1,20 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+		 xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+	<j:set var="build" value="${it.findBuild()}"/>
+	<l:layout title="Rebuild ${build.fullDisplayName}">
+		<st:include page="sidepanel.jelly" it="${build}"/>
+		<l:main-panel>
+			<h1>Rebuild ${build.fullDisplayName}</h1>
+			<l:pane title="${%Parameters}" width="3">
+				<ul>
+					<j:forEach var="parameterValue" items="${it.findParameters()}">
+						<st:include it="${parameterValue}" page="value.jelly"/>
+					</j:forEach>
+				</ul>
+				<form method="post" action="rebuild">
+					<input type="submit" value="Rebuild"/>
+				</form>
+			</l:pane>
+		</l:main-panel>
+	</l:layout>
+</j:jelly>
